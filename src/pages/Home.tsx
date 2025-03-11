@@ -1,5 +1,5 @@
 export const Home = () => {
-    return <div className="min-h-screen">
-        Home
-    </div>
+    return <main className="min-h-screen">
+        
+    </main>
 }

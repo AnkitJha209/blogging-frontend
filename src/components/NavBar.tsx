@@ -4,10 +4,12 @@ import { AlignJustify } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { ModeToggle } from "./mode-toggle";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 export function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const {token} = useSelector((state: RootState) => state.auth)
   return (
     <nav className="w-full bg-white border-b-1 border-black fixed z-50 top-0 left-0 shadow-lg">
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
@@ -36,11 +38,15 @@ export function NavBar() {
         </NavigationMenu>
 
         {/* Buttons (Hidden on Small Screens) */}
-        <div className="hidden md:flex space-x-4">
+        {token === '' ? <div className="hidden md:flex space-x-4">
           <ModeToggle/>   
           <NavLink to='/signin'><Button className="cursor-pointer" variant="outline">Sign In</Button></NavLink>
           <NavLink to='/signup'><Button className="cursor-pointer">Sign Up</Button></NavLink>
-        </div>
+        </div> : <div className="hidden md:flex space-x-4">
+          <ModeToggle/>   
+          <NavLink to='/blog/create-blog'><Button className="cursor-pointer" variant="outline">Create Blog</Button></NavLink>
+          <NavLink to='/myBlogs'><Button className="cursor-pointer">My Blogs</Button></NavLink>
+        </div>}
 
         {/* Mobile Menu Button */}
         <button
